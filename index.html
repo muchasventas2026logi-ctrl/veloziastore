@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Velozia Store | Ropa y Streetwear</title>
+    <meta name="description" content="Tienda de ropa operada por FUNDACION SOCIAL TRANSFORMA, NIT 900094210-8. Cali, Colombia.">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800;900&display=swap');
+        body { font-family: 'Inter', sans-serif; background-color: #000; color: #fff; }
+        .font-display { font-family: 'Inter', sans-serif; font-weight: 900; text-transform: uppercase; letter-spacing: -0.02em; }
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #111; }
+        ::-webkit-scrollbar-thumb { background: #fbbf24; }
+        
+        /* Efecto de ruido/textura para fondo streetwear */
+        .bg-noise {
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E");
+        }
+    </style>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'brand-black': '#050505',
+                        'brand-cyan': '#00ccff',
+                        'brand-gray': '#1f2937',
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- Meta Pixel (Estructura Transparente Meta Ads) -->
+    <script>
+      const PIXEL_ID = ""; 
+      if(PIXEL_ID) {
+          !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window, document,'script','https://connect.facebook.net/en_US/fbevents.js');
+          function initPixel() {
+              if(localStorage.getItem('cookie_consent_ads') === 'true') {
+                  fbq('init', PIXEL_ID);
+                  fbq('track', 'PageView');
+              }
+          }
+          initPixel();
+      }
+    </script>
+</head>
+<!-- Estado global Alpine: modales y menú -->
+<body class="antialiased bg-brand-black bg-noise" x-data="{ showTerms: false, showPrivacy: false, showCookieBanner: !localStorage.getItem('cookie_consent'), mobileMenuOpen: false }">
+
+    <!-- BARRA LEGAL META ADS (Transparencia) -->
+    <div class="bg-zinc-900 text-zinc-400 text-[11px] sm:text-xs py-2 px-4 text-center border-b border-zinc-800 tracking-wide">
+        Velozia Store es una tienda operada por FUNDACION SOCIAL TRANSFORMA, NIT 900094210-8, con domicilio en KR 36 # 5 B2 - 54, Cali - Valle.
+    </div>
+
+    <!-- HEADER / NAVEGACIÓN LANDING -->
+    <header class="bg-brand-black/90 backdrop-blur-md sticky top-0 z-40 border-b border-zinc-800">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-24 py-2">
+                <!-- LOGO -->
+                <a href="#" class="flex items-center shrink-0">
+                    <img src="velozia_logo.png" alt="Velozia Store" class="h-16 sm:h-20 w-auto object-contain drop-shadow-md">
+                </a>
+                
+                <!-- MENU DESKTOP -->
+                <nav class="hidden lg:flex space-x-8 mx-auto">
+                    <a href="#" class="text-white text-sm font-bold uppercase tracking-wider hover:text-brand-cyan transition">Inicio</a>
+                    <a href="#oferta" class="text-white text-sm font-bold uppercase tracking-wider hover:text-brand-cyan transition">Colección</a>
+                    <a href="#nosotros" class="text-white text-sm font-bold uppercase tracking-wider hover:text-brand-cyan transition">Nosotros</a>
+                    <a href="#contacto" class="text-white text-sm font-bold uppercase tracking-wider hover:text-brand-cyan transition">Contacto</a>
+                </nav>
+
+                <!-- CTA & MENU MOVIL TOGGLE -->
+                <div class="flex items-center gap-4 shrink-0">
+                    <a href="#contacto" class="hidden sm:inline-flex items-center justify-center px-6 py-2.5 text-sm font-bold rounded text-black bg-brand-cyan hover:bg-cyan-400 transition uppercase shadow-[0_0_15px_rgba(0,204,255,0.3)]">
+                        Hacer Pedido
+                    </a>
+                    
+                    <!-- Botón Hamburguesa -->
+                    <button @click="mobileMenuOpen = !mobileMenuOpen" class="lg:hidden text-white p-2 focus:outline-none">
+                        <svg x-show="!mobileMenuOpen" xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                        <svg x-show="mobileMenuOpen" style="display: none;" xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- PANEL MENU MOVIL -->
+        <div x-show="mobileMenuOpen" style="display: none;" class="lg:hidden bg-zinc-900 border-t border-zinc-800 px-4 py-4 space-y-3 absolute w-full z-40 shadow-2xl">
+            <a @click="mobileMenuOpen = false" href="#" class="block text-white font-bold uppercase py-2 border-b border-zinc-800">Inicio</a>
+            <a @click="mobileMenuOpen = false" href="#oferta" class="block text-white font-bold uppercase py-2 border-b border-zinc-800">Colección</a>
+            <a @click="mobileMenuOpen = false" href="#nosotros" class="block text-white font-bold uppercase py-2 border-b border-zinc-800">Nosotros</a>
+            <a @click="mobileMenuOpen = false" href="#contacto" class="block text-white font-bold uppercase py-2 border-b border-zinc-800">Contacto</a>
+            <a @click="mobileMenuOpen = false" href="#contacto" class="block text-center mt-4 px-4 py-3 bg-brand-cyan text-black font-bold rounded uppercase shadow-lg">Hacer Pedido</a>
+        </div>
+    </header>
+
+    <!-- HERO SECTION (Conversión y Enfoque Visual) -->
+    <section class="relative pt-12 pb-20 lg:pt-20 lg:pb-28 overflow-hidden">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                
+                <!-- Textos Hero -->
+                <div class="text-center lg:text-left">
+                    <div class="inline-block bg-zinc-800 text-brand-cyan text-xs font-bold px-3 py-1 rounded-full uppercase tracking-widest mb-6">Nueva Colección Streetwear</div>
+                    <h1 class="text-5xl sm:text-6xl lg:text-7xl font-display text-white mb-6 leading-[1.1]">
+                        TU ESTILO.<br>
+                        <span class="text-brand-cyan">TU PARCHE.</span><br>
+                        TU MANERA.
+                    </h1>
+                    <p class="text-lg text-zinc-400 mb-8 max-w-lg mx-auto lg:mx-0">
+                        Descubre camisetas y streetwear premium para quienes quieren vestir diferente. Diseños únicos, calidad superior.
+                    </p>
+                    
+                    <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+                        <a href="#oferta" class="px-8 py-4 text-base font-bold rounded text-black bg-brand-cyan hover:bg-cyan-400 transition uppercase text-center w-full sm:w-auto shadow-[0_0_20px_rgba(0,204,255,0.4)]">
+                            Ver Productos
+                        </a>
+                        <a href="#contacto" class="px-8 py-4 text-base font-bold rounded text-white border-2 border-zinc-700 hover:border-white transition uppercase text-center w-full sm:w-auto bg-transparent">
+                            Hacer Pedido
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Imagen Hero Funcional -->
+                <div class="relative w-full max-w-md mx-auto lg:max-w-none">
+                    <div class="aspect-[4/5] bg-zinc-800 rounded-xl overflow-hidden shadow-2xl relative">
+                        <!-- IMAGEN FUNCIONAL UNSPLASH -->
+                        <img src="https://images.unsplash.com/photo-1529139574466-a303027c1d8b?auto=format&fit=crop&w=800&q=80" alt="Estilo Urbano Streetwear" class="w-full h-full object-cover">
+                        <!-- Overlay degradado -->
+                        <div class="absolute inset-0 bg-gradient-to-t from-brand-black via-transparent to-transparent"></div>
+                    </div>
+                    <!-- Decoración -->
+                    <div class="absolute -z-10 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] bg-brand-cyan/20 blur-[100px] rounded-full"></div>
+                </div>
+                
+            </div>
+        </div>
+    </section>
+
+    <!-- TRUST BAR (Beneficios Rápidos) -->
+    <section class="border-y border-zinc-800 bg-zinc-900/50">
+        <div class="max-w-6xl mx-auto px-4 py-8 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6 text-center text-sm font-bold uppercase tracking-wider text-zinc-300">
+                <div class="flex flex-col items-center gap-3">
+                    <svg class="w-8 h-8 text-brand-cyan" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4" /></svg>
+                    <span>Envíos a<br>Colombia</span>
+                </div>
+                <div class="flex flex-col items-center gap-3">
+                    <svg class="w-8 h-8 text-brand-cyan" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z" /></svg>
+                    <span>Pago Contraentrega<br><span class="text-[10px] text-zinc-500 normal-case">(Cuando aplique)</span></span>
+                </div>
+                <div class="flex flex-col items-center gap-3">
+                    <svg class="w-8 h-8 text-brand-cyan" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192l-3.536 3.536M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-5 0a4 4 0 11-8 0 4 4 0 018 0z" /></svg>
+                    <span>Atención<br>Directa</span>
+                </div>
+                <div class="flex flex-col items-center gap-3">
+                    <svg class="w-8 h-8 text-brand-cyan" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" /></svg>
+                    <span>Compra<br>Segura</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PRODUCTOS DESTACADOS (OFERTA) -->
+    <section id="oferta" class="py-24">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl sm:text-5xl font-display text-white uppercase mb-4">La Colección</h2>
+                <div class="w-20 h-1 bg-brand-cyan mx-auto"></div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                
+                <!-- PRODUCTO 1 -->
+                <div class="bg-zinc-900 rounded-xl overflow-hidden border border-zinc-800 hover:border-brand-cyan transition group">
+                    <div class="aspect-[4/5] overflow-hidden relative bg-zinc-800">
+                        <img src="https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?auto=format&fit=crop&w=600&q=80" alt="Camiseta Negra" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-white mb-2 uppercase">Camiseta Black Essential</h3>
+                        <div class="text-2xl font-display text-brand-cyan mb-4">$ 65.000 COP</div>
+                        <div class="flex gap-2 mb-6">
+                            <span class="bg-zinc-800 text-zinc-300 text-xs px-2 py-1 rounded font-bold">TALLAS: S-XL</span>
+                        </div>
+                        <a href="#contacto" class="block w-full bg-white text-black text-center font-bold py-3 rounded hover:bg-zinc-200 transition uppercase text-sm">Comprar Ahora</a>
+                    </div>
+                </div>
+
+                <!-- PRODUCTO 2 -->
+                <div class="bg-zinc-900 rounded-xl overflow-hidden border border-zinc-800 hover:border-brand-cyan transition group">
+                    <div class="aspect-[4/5] overflow-hidden relative bg-zinc-800">
+                        <img src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=600&q=80" alt="Camiseta Blanca" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-white mb-2 uppercase">Camiseta White Classic</h3>
+                        <div class="text-2xl font-display text-brand-cyan mb-4">$ 65.000 COP</div>
+                        <div class="flex gap-2 mb-6">
+                            <span class="bg-zinc-800 text-zinc-300 text-xs px-2 py-1 rounded font-bold">TALLAS: S-XL</span>
+                        </div>
+                        <a href="#contacto" class="block w-full bg-white text-black text-center font-bold py-3 rounded hover:bg-zinc-200 transition uppercase text-sm">Comprar Ahora</a>
+                    </div>
+                </div>
+
+                <!-- PRODUCTO 3 -->
+                <div class="bg-zinc-900 rounded-xl overflow-hidden border border-zinc-800 hover:border-brand-cyan transition group">
+                    <div class="aspect-[4/5] overflow-hidden relative bg-zinc-800">
+                        <img src="https://images.unsplash.com/photo-1556821840-3a63f95609a7?auto=format&fit=crop&w=600&q=80" alt="Hoodie Gris" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-white mb-2 uppercase">Hoodie Gris Oversize</h3>
+                        <div class="text-2xl font-display text-brand-cyan mb-4">$ 120.000 COP</div>
+                        <div class="flex gap-2 mb-6">
+                            <span class="bg-zinc-800 text-zinc-300 text-xs px-2 py-1 rounded font-bold">TALLAS: M-L</span>
+                        </div>
+                        <a href="#contacto" class="block w-full bg-white text-black text-center font-bold py-3 rounded hover:bg-zinc-200 transition uppercase text-sm">Comprar Ahora</a>
+                    </div>
+                </div>
+                
+                <!-- PRODUCTO 4 -->
+                <div class="bg-zinc-900 rounded-xl overflow-hidden border border-zinc-800 hover:border-brand-cyan transition group">
+                    <div class="aspect-[4/5] overflow-hidden relative bg-zinc-800">
+                        <img src="https://images.unsplash.com/photo-1559551409-dadc959f76b8?auto=format&fit=crop&w=600&q=80" alt="Chaqueta Urbana" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-white mb-2 uppercase">Chaqueta Urbana</h3>
+                        <div class="text-2xl font-display text-brand-cyan mb-4">$ 145.000 COP</div>
+                        <div class="flex gap-2 mb-6">
+                            <span class="bg-zinc-800 text-zinc-300 text-xs px-2 py-1 rounded font-bold">TALLAS: M-L-XL</span>
+                        </div>
+                        <a href="#contacto" class="block w-full bg-white text-black text-center font-bold py-3 rounded hover:bg-zinc-200 transition uppercase text-sm">Comprar Ahora</a>
+                    </div>
+                </div>
+
+                <!-- PRODUCTO 5 -->
+                <div class="bg-zinc-900 rounded-xl overflow-hidden border border-zinc-800 hover:border-brand-cyan transition group">
+                    <div class="aspect-[4/5] overflow-hidden relative bg-zinc-800">
+                        <img src="https://images.unsplash.com/photo-1618354691373-d851c5c3a990?auto=format&fit=crop&w=600&q=80" alt="Heavyweight" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-white mb-2 uppercase">Tee Heavyweight</h3>
+                        <div class="text-2xl font-display text-brand-cyan mb-4">$ 75.000 COP</div>
+                        <div class="flex gap-2 mb-6">
+                            <span class="bg-zinc-800 text-zinc-300 text-xs px-2 py-1 rounded font-bold">TALLAS: S-XL</span>
+                        </div>
+                        <a href="#contacto" class="block w-full bg-white text-black text-center font-bold py-3 rounded hover:bg-zinc-200 transition uppercase text-sm">Comprar Ahora</a>
+                    </div>
+                </div>
+
+                <!-- PRODUCTO 6 -->
+                <div class="bg-zinc-900 rounded-xl overflow-hidden border border-zinc-800 hover:border-brand-cyan transition group">
+                    <div class="aspect-[4/5] overflow-hidden relative bg-zinc-800">
+                        <img src="https://images.unsplash.com/photo-1576871337632-b9aef4c17ab9?auto=format&fit=crop&w=600&q=80" alt="Buzo Beige" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-white mb-2 uppercase">Buzo Beige</h3>
+                        <div class="text-2xl font-display text-brand-cyan mb-4">$ 110.000 COP</div>
+                        <div class="flex gap-2 mb-6">
+                            <span class="bg-zinc-800 text-zinc-300 text-xs px-2 py-1 rounded font-bold">TALLAS: M-L</span>
+                        </div>
+                        <a href="#contacto" class="block w-full bg-white text-black text-center font-bold py-3 rounded hover:bg-zinc-200 transition uppercase text-sm">Comprar Ahora</a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Banner Combo Promocional -->
+            <div class="mt-16 bg-brand-cyan text-black rounded-xl p-8 sm:p-12 text-center relative overflow-hidden">
+                <div class="relative z-10">
+                    <h3 class="text-3xl sm:text-4xl font-display uppercase mb-4">Arma Tu Combo</h3>
+                    <p class="text-lg font-bold mb-8 max-w-2xl mx-auto">Combina tus estilos favoritos y encuentra opciones pensadas para comprar más de una unidad.</p>
+                    <a href="#contacto" class="inline-block bg-black text-white px-8 py-4 font-bold rounded hover:bg-zinc-800 transition uppercase shadow-xl">Ver Combos y Ofertas</a>
+                </div>
+                <div class="absolute -right-20 -top-20 w-64 h-64 bg-white opacity-20 rounded-full blur-3xl pointer-events-none"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- NOSOTROS Y FAQ -->
+    <section class="py-24 bg-zinc-950 border-y border-zinc-900">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-2 gap-16">
+            
+            <!-- Nosotros -->
+            <div>
+                <h2 class="text-3xl font-display uppercase text-white mb-6">Más que ropa, somos comunidad</h2>
+                <div class="text-zinc-400 space-y-4 mb-8">
+                    <p>Velozia Store es una propuesta de moda y cultura urbana enfocada en ofrecer prendas con personalidad, estilo y actitud.</p>
+                </div>
+                
+                <div class="bg-zinc-900 p-6 rounded-lg border border-zinc-800 shadow-inner">
+                    <h3 class="text-brand-cyan font-bold uppercase text-sm mb-4">Información Corporativa y Legal</h3>
+                    <ul class="space-y-3 text-sm text-zinc-300">
+                        <li><strong class="text-white">Razón social:</strong> FUNDACION SOCIAL TRANSFORMA</li>
+                        <li><strong class="text-white">NIT:</strong> 900094210-8</li>
+                        <li><strong class="text-white">Ubicación:</strong> KR 36 # 5 B2 - 54, Cali - Valle</li>
+                        <li><strong class="text-white">Correo:</strong> soportetecnico@velozia-store.store</li>
+                        <li><strong class="text-white">Teléfono:</strong> 3046365348</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- FAQ -->
+            <div x-data="{ active: null }" class="space-y-3">
+                <h2 class="text-3xl font-display uppercase text-white mb-6">Preguntas Frecuentes</h2>
+                
+                <div class="bg-zinc-900 border border-zinc-800 rounded">
+                    <button @click="active = active === 1 ? null : 1" class="flex justify-between items-center w-full px-5 py-4 text-left font-bold text-white focus:outline-none uppercase text-sm">
+                        ¿Quién opera Velozia Store?
+                        <svg class="h-5 w-5 text-zinc-500 transform transition-transform" :class="{'rotate-180': active === 1}" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
+                    </button>
+                    <div class="px-5 py-4 text-zinc-400 border-t border-zinc-800 text-sm" x-show="active === 1" style="display: none;">
+                        Es operado por FUNDACION SOCIAL TRANSFORMA, NIT 900094210-8.
+                    </div>
+                </div>
+                
+                <div class="bg-zinc-900 border border-zinc-800 rounded">
+                    <button @click="active = active === 2 ? null : 2" class="flex justify-between items-center w-full px-5 py-4 text-left font-bold text-white focus:outline-none uppercase text-sm">
+                        ¿Dónde están ubicados?
+                        <svg class="h-5 w-5 text-zinc-500 transform transition-transform" :class="{'rotate-180': active === 2}" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
+                    </button>
+                    <div class="px-5 py-4 text-zinc-400 border-t border-zinc-800 text-sm" x-show="active === 2" style="display: none;">
+                        KR 36 # 5 B2 - 54, Cali - Valle.
+                    </div>
+                </div>
+                
+                <div class="bg-zinc-900 border border-zinc-800 rounded">
+                    <button @click="active = active === 3 ? null : 3" class="flex justify-between items-center w-full px-5 py-4 text-left font-bold text-white focus:outline-none uppercase text-sm">
+                        ¿Hacen envíos?
+                        <svg class="h-5 w-5 text-zinc-500 transform transition-transform" :class="{'rotate-180': active === 3}" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
+                    </button>
+                    <div class="px-5 py-4 text-zinc-400 border-t border-zinc-800 text-sm" x-show="active === 3" style="display: none;">
+                        Sí. Las condiciones de envío disponibles se informan durante el proceso de compra.
+                    </div>
+                </div>
+
+                <div class="bg-zinc-900 border border-zinc-800 rounded">
+                    <button @click="active = active === 4 ? null : 4" class="flex justify-between items-center w-full px-5 py-4 text-left font-bold text-white focus:outline-none uppercase text-sm">
+                        ¿Cómo funcionan los cambios?
+                        <svg class="h-5 w-5 text-zinc-500 transform transition-transform" :class="{'rotate-180': active === 4}" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
+                    </button>
+                    <div class="px-5 py-4 text-zinc-400 border-t border-zinc-800 text-sm" x-show="active === 4" style="display: none;">
+                        Comunícate a nuestras líneas de atención o consulta nuestros términos y condiciones para revisar tu caso.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACTO (Cierre de Venta) -->
+    <section id="contacto" class="py-24 relative">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 class="text-4xl sm:text-5xl font-display text-white uppercase mb-4">Haz Tu Pedido</h2>
+            <p class="text-zinc-400 mb-12">Estamos aquí para ayudarte. Completa el formulario y nos comunicaremos contigo lo más pronto posible para coordinar tu compra.</p>
+            
+            <form action="mailto:soportetecnico@velozia-store.store" method="POST" enctype="text/plain" class="bg-zinc-900 p-8 rounded-xl border border-zinc-800 shadow-2xl text-left max-w-2xl mx-auto">
+                <div class="mb-6">
+                    <label class="block text-sm font-bold text-zinc-300 mb-2 uppercase">Nombre completo</label>
+                    <input type="text" name="nombre" required class="w-full bg-zinc-950 border border-zinc-700 text-white rounded p-4 focus:outline-none focus:border-brand-cyan">
+                </div>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-6">
+                    <div>
+                        <label class="block text-sm font-bold text-zinc-300 mb-2 uppercase">Correo electrónico</label>
+                        <input type="email" name="correo" required class="w-full bg-zinc-950 border border-zinc-700 text-white rounded p-4 focus:outline-none focus:border-brand-cyan">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-bold text-zinc-300 mb-2 uppercase">Teléfono</label>
+                        <input type="tel" name="telefono" required class="w-full bg-zinc-950 border border-zinc-700 text-white rounded p-4 focus:outline-none focus:border-brand-cyan">
+                    </div>
+                </div>
+                <div class="mb-8">
+                    <label class="block text-sm font-bold text-zinc-300 mb-2 uppercase">Prenda de interés o Mensaje</label>
+                    <textarea name="mensaje" rows="3" required class="w-full bg-zinc-950 border border-zinc-700 text-white rounded p-4 focus:outline-none focus:border-brand-cyan resize-none"></textarea>
+                </div>
+                <button type="submit" class="w-full bg-brand-cyan text-black font-bold py-4 rounded hover:bg-cyan-400 transition uppercase shadow-[0_0_15px_rgba(0,204,255,0.2)]">
+                    ENVIAR MENSAJE
+                </button>
+            </form>
+        </div>
+    </section>
+
+    <!-- FOOTER LEGAL MINIMALISTA -->
+    <footer class="bg-black py-12 border-t border-zinc-900 text-center text-sm text-zinc-500">
+        <div class="max-w-6xl mx-auto px-4">
+            <p class="font-bold text-white uppercase tracking-wider mb-2">VELOZIA STORE</p>
+            <p class="mb-6">Operado por FUNDACION SOCIAL TRANSFORMA. NIT 900094210-8.<br>KR 36 # 5 B2 - 54, Cali - Valle. soportetecnico@velozia-store.store | 3046365348</p>
+            
+            <div class="flex flex-wrap justify-center gap-4 mb-8">
+                <!-- Disparadores de modales -->
+                <button @click.prevent="showTerms = true" class="hover:text-white transition underline underline-offset-4">Términos y Condiciones</button>
+                <button @click.prevent="showPrivacy = true" class="hover:text-white transition underline underline-offset-4">Política de Privacidad</button>
+            </div>
+            
+            <p class="text-xs">&copy; 2026 Velozia Store. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <!-- COOKIE BANNER -->
+    <div x-show="showCookieBanner" style="display: none;" class="fixed bottom-0 inset-x-0 p-4 z-[60] bg-zinc-900 border-t border-zinc-800">
+        <div class="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
+            <p class="text-xs text-zinc-300">
+                Utilizamos cookies propias y de terceros para analítica web y publicidad (categorías: necesarias, analítica y publicidad).
+                <button @click="showPrivacy = true" class="underline hover:text-white">Política de privacidad</button>.
+            </p>
+            <div class="flex gap-2 shrink-0">
+                <button @click="localStorage.setItem('cookie_consent', 'true'); localStorage.setItem('cookie_consent_ads', 'true'); showCookieBanner = false; if(typeof initPixel === 'function') initPixel();" class="px-4 py-2 bg-brand-cyan text-black text-xs font-bold rounded uppercase">Aceptar</button>
+                <button @click="localStorage.setItem('cookie_consent', 'true'); localStorage.setItem('cookie_consent_ads', 'false'); showCookieBanner = false;" class="px-4 py-2 border border-zinc-700 text-white text-xs font-bold rounded uppercase hover:bg-zinc-800">Rechazar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL: TÉRMINOS Y CONDICIONES -->
+    <div x-show="showTerms" style="display: none;" class="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6" x-transition.opacity>
+        <!-- Backdrop -->
+        <div class="absolute inset-0 bg-black/80 backdrop-blur-sm" @click="showTerms = false"></div>
+        <!-- Modal Content -->
+        <div class="relative w-full max-w-4xl max-h-[85vh] bg-zinc-900 border border-zinc-800 rounded-xl shadow-2xl flex flex-col overflow-hidden">
+            <div class="p-4 border-b border-zinc-800 flex justify-between items-center bg-zinc-900 z-10">
+                <h2 class="text-xl font-display uppercase text-white">Términos y Condiciones</h2>
+                <button @click="showTerms = false" class="text-zinc-400 hover:text-white">
+                    <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
+                </button>
+            </div>
+            <div class="p-6 overflow-y-auto text-zinc-300 text-sm space-y-4">
+                <p><strong>FUNDACION SOCIAL TRANSFORMA</strong><br>NIT: 900094210-8<br>KR 36 # 5 B2 - 54, Cali - Valle<br>Correo: soportetecnico@velozia-store.store | Teléfono: 3046365348</p>
+                <h3 class="text-white font-bold text-base mt-6">1. Identificación del negocio</h3>
+                <p>El presente sitio web es operado por FUNDACION SOCIAL TRANSFORMA (en adelante, "la Empresa"), con NIT 900094210-8, y domicilio en KR 36 # 5 B2 - 54, Cali - Valle. La marca comercial asociada es "Velozia Store".</p>
+                <h3 class="text-white font-bold text-base mt-4">2. Uso del sitio</h3>
+                <p>Al acceder o utilizar este Sitio Web, el usuario acepta expresamente estos Términos y Condiciones. El usuario se compromete a realizar un uso lícito y adecuado de la plataforma.</p>
+                <h3 class="text-white font-bold text-base mt-4">3. Productos</h3>
+                <p>Se exhiben prendas de vestir y streetwear. Las imágenes son de referencia. Hacemos lo posible por mostrar los productos con exactitud, pero pueden existir ligeras variaciones de color según la pantalla del usuario.</p>
+                <h3 class="text-white font-bold text-base mt-4">4. Precios</h3>
+                <p>Los precios están en Pesos Colombianos (COP) e incluyen impuestos aplicables. Los costos de envío se calcularán por separado al momento de la compra.</p>
+                <h3 class="text-white font-bold text-base mt-4">5. Disponibilidad y Pedidos</h3>
+                <p>Todo pedido está sujeto a la disponibilidad del inventario. Para formalizar un pedido, el usuario deberá seguir el proceso de contacto/compra establecido. Los pagos se procesan a través de medios autorizados, incluyendo plataformas de pago seguro o pago contraentrega cuando esté disponible.</p>
+                <h3 class="text-white font-bold text-base mt-4">6. Envíos y Entregas</h3>
+                <p>Los despachos se realizan mediante transportadoras nacionales. Las condiciones, cobertura y costos serán detallados durante el proceso de compra. El usuario debe proveer una dirección completa y correcta.</p>
+                <h3 class="text-white font-bold text-base mt-4">7. Cambios, Devoluciones y Retracto</h3>
+                <p>El usuario puede solicitar cambios de productos comunicándose a nuestras líneas de atención. Toda prenda debe devolverse en perfecto estado. En cumplimiento del Estatuto del Consumidor en Colombia, el usuario tiene derecho a retractarse de la compra en los plazos de ley (5 días hábiles), asumiendo los costos de envío de retorno.</p>
+                <h3 class="text-white font-bold text-base mt-4">8. Garantías y Propiedad Intelectual</h3>
+                <p>Otorgamos garantía legal por defectos de fábrica. Los contenidos del sitio (textos, imágenes, logos) son propiedad exclusiva de la Empresa y están protegidos por leyes de derechos de autor.</p>
+                <h3 class="text-white font-bold text-base mt-4">9. Protección de datos y Responsabilidad</h3>
+                <p>El tratamiento de los datos personales suministrados por el usuario se rige por nuestra Política de privacidad. La Empresa no será responsable por interrupciones técnicas del sitio web o eventos de fuerza mayor.</p>
+            </div>
+            <div class="p-4 border-t border-zinc-800 text-right bg-zinc-900">
+                <button @click="showTerms = false" class="px-6 py-2 bg-brand-cyan text-black font-bold uppercase rounded text-sm hover:bg-cyan-400">Cerrar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL: POLÍTICA DE PRIVACIDAD -->
+    <div x-show="showPrivacy" style="display: none;" class="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6" x-transition.opacity>
+        <!-- Backdrop -->
+        <div class="absolute inset-0 bg-black/80 backdrop-blur-sm" @click="showPrivacy = false"></div>
+        <!-- Modal Content -->
+        <div class="relative w-full max-w-4xl max-h-[85vh] bg-zinc-900 border border-zinc-800 rounded-xl shadow-2xl flex flex-col overflow-hidden">
+            <div class="p-4 border-b border-zinc-800 flex justify-between items-center bg-zinc-900 z-10">
+                <h2 class="text-xl font-display uppercase text-white">Política de Privacidad</h2>
+                <button @click="showPrivacy = false" class="text-zinc-400 hover:text-white">
+                    <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
+                </button>
+            </div>
+            <div class="p-6 overflow-y-auto text-zinc-300 text-sm space-y-4">
+                <p><strong>Responsable:</strong> FUNDACION SOCIAL TRANSFORMA<br>NIT: 900094210-8<br>KR 36 # 5 B2 - 54, Cali - Valle<br>Correo: soportetecnico@velozia-store.store | Teléfono: 3046365348</p>
+                <h3 class="text-white font-bold text-base mt-6">1. Responsable del tratamiento</h3>
+                <p>La protección de sus datos está a cargo de FUNDACION SOCIAL TRANSFORMA, entidad operadora de la marca Velozia Store.</p>
+                <h3 class="text-white font-bold text-base mt-4">2. Datos recopilados</h3>
+                <ul class="list-disc pl-5 space-y-1">
+                    <li><strong>Formularios:</strong> Nombres, correo electrónico, teléfono, ciudad y mensaje.</li>
+                    <li><strong>Pedidos:</strong> Información de facturación, dirección de envío y datos de contacto.</li>
+                    <li><strong>Cookies y Analítica:</strong> Datos de navegación e interacciones en el sitio web.</li>
+                </ul>
+                <h3 class="text-white font-bold text-base mt-4">3. Publicidad y Meta Pixel</h3>
+                <p>En caso de instalar herramientas de seguimiento como Meta Pixel, se recopilará información sobre acciones en la página. Esto se hace con fines de medición y publicidad. Las cookies publicitarias opcionales solo se activarán previo consentimiento del usuario a través de nuestro banner de cookies.</p>
+                <h3 class="text-white font-bold text-base mt-4">4. Finalidades</h3>
+                <p>Los datos son usados para: procesar pedidos, despachar productos, atención al cliente, comunicaciones comerciales (previo consentimiento), facturación y análisis estadístico.</p>
+                <h3 class="text-white font-bold text-base mt-4">5. Terceros y Seguridad</h3>
+                <p>Podemos compartir datos necesarios con empresas transportadoras y pasarelas de pago. No vendemos datos a terceros. Implementamos protocolos seguros (HTTPS) y prácticas organizacionales para proteger la información de pérdida o acceso no autorizado.</p>
+                <h3 class="text-white font-bold text-base mt-4">6. Derechos del usuario</h3>
+                <p>Como titular, tiene derecho a conocer, actualizar, rectificar y eliminar sus datos. Puede enviar sus solicitudes al correo soportetecnico@velozia-store.store.</p>
+            </div>
+            <div class="p-4 border-t border-zinc-800 text-right bg-zinc-900">
+                <button @click="showPrivacy = false" class="px-6 py-2 bg-brand-cyan text-black font-bold uppercase rounded text-sm hover:bg-cyan-400">Cerrar</button>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
